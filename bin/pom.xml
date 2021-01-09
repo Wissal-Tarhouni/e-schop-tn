@@ -8,11 +8,11 @@
 		<version>2.4.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>tn.rnu.isi.eschop</groupId>
+	<groupId>tn.com.tradenet</groupId>
 	<artifactId>SpringMVCBootData</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpringMVCBootData</name>
-	<description>Spring MVC Boot Data - Postgres</description>
+	<description>SpringMVCBootData</description>
 
 	<properties>
 		<java.version>1.8</java.version>
