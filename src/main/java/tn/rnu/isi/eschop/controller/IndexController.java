@@ -53,6 +53,11 @@ public class IndexController {
 	
 	@RequestMapping(value="/", method= RequestMethod.GET)
 	public String index(Map<String, Object> model) throws Exception {
+		
+		
+		if(produitService.getAll().size()>0) {
+			
+		}
 	 
     return "index";
 	}   
