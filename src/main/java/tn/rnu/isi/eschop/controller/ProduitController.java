@@ -39,7 +39,7 @@ public class ProduitController {
  
  
 
-@RequestMapping(value = "/produit/listAll", method = RequestMethod.GET)
+@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 
 	protected ModelAndView showAllProduits() throws Exception {
 		/*
@@ -53,21 +53,21 @@ public class ProduitController {
 		return new ModelAndView("produit/showAllProduits", "produits", listeProduits);
 	}
 
-	 	@RequestMapping(value = "/produit/list", method = RequestMethod.GET)
+	 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	    public String list(Model model) throws Exception {
 	        model.addAttribute("produits", produitService.getAll());
 	        return "produit/showAllProduits"; // Afficher la page showAllProduits qui se trouve sous /produit
 	        
 	    }
 
-	    @RequestMapping(value = "/produit/get/{id}" , method = RequestMethod.GET)
+	    @RequestMapping(value = "/get/{id}" , method = RequestMethod.GET)
 	    public String get(@PathVariable Long id, Model model) throws Exception {
 	        model.addAttribute("produitToShow", produitService.getByIdProduit(id));
 	        return "produit/showProduit"; // Afficher la page showProduit qui se trouve sous /produit
 	    }
 	    
 	    
-	    @RequestMapping(value = "/produit/save", method = RequestMethod.POST)
+	    @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String saveOrUpdate(@ModelAttribute("produitForm") Produit produit, Model model, final RedirectAttributes redirectAttributes) throws Exception {
 	    	try {
 				
@@ -103,7 +103,7 @@ public class ProduitController {
 	    
 
  
-	    @RequestMapping("/produit/update/{id}")
+	    @RequestMapping("/update/{id}")
 	    public String update(@PathVariable Long id, Model model, final RedirectAttributes redirectAttributes) throws Exception {
 	        Produit produit = produitService.getByIdProduit(id);
 	        model.addAttribute("produitForm", produit);
@@ -121,7 +121,7 @@ public class ProduitController {
 	        return "redirect:/produit/listAll";
 	    }
 	    
-	    @RequestMapping(value = "/produit/clear")
+	    @RequestMapping(value = "/clear")
 	    public String deleteAll() throws Exception {
 	    	List<Produit> listeProduits = produitService.getAll();
 	    	for (Produit produit : listeProduits) {
