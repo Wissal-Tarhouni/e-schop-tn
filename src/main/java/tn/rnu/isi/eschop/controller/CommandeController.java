@@ -20,7 +20,8 @@ import tn.rnu.isi.eschop.service.CommandeService;
 
 
  
-@Controller("commandeController")
+@Controller()
+@RequestMapping("/commande")
 public class CommandeController {
 	
 	private final Logger logger = LoggerFactory.getLogger(CommandeController.class);
@@ -30,7 +31,7 @@ public class CommandeController {
 	CommandeService commandeService;
  
 
-@RequestMapping(value = "/commande/listAll", method = RequestMethod.GET)
+@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 
 	protected ModelAndView showAllCommandes() throws Exception {
 		/*
@@ -41,24 +42,19 @@ public class CommandeController {
 		/*
 		 * Envoi Vue + Modele MVC pour Affichage donnees vue
 		 */
-		return new ModelAndView("/commande/showAllCommandes", "commandes", listeCommandes);
+		return new ModelAndView("commande/showAllCommandes", "commandes", listeCommandes);
 	}
 
-	 	@RequestMapping(value = "/commande/list", method = RequestMethod.GET)
-	    public String list(Model model) throws Exception {
-	        model.addAttribute("commandes", commandeService.getAll());
-	        return "/commande/showAllCommandes"; // Afficher la page showAllCommandes.html qui se trouve sous /commande
-	        
-	    }
+ 
 
-	    @RequestMapping(value = "/commande/get/{id}" , method = RequestMethod.GET)
+	    @RequestMapping(value = "/get/{id}" , method = RequestMethod.GET)
 	    public String get(@PathVariable Long id, Model model) throws Exception {
 	        model.addAttribute("commandeToShow", commandeService.getByIdCommande(id));
-	        return "/commande/showCommande"; // Afficher la page showCommande.html qui se trouve sous /commande
+	        return "commande/showCommande"; // Afficher la page showCommande.html qui se trouve sous /commande
 	    }
 	    
 	    
-	    @RequestMapping(value = "/commande/save", method = RequestMethod.POST)
+	    @RequestMapping(value = "/save", method = RequestMethod.POST)
 	    public String saveOrUpdate(@ModelAttribute("commandeForm") Commande commande, Model model, final RedirectAttributes redirectAttributes) throws Exception {
 	    	try {
 				
@@ -83,14 +79,14 @@ public class CommandeController {
 	    
 
  
-	    @RequestMapping("/commande/update/{id}")
+	    @RequestMapping("/update/{id}")
 	    public String update(@PathVariable Long id, Model model, final RedirectAttributes redirectAttributes) throws Exception {
 	        Commande commande = commandeService.getByIdCommande(id);
 	        model.addAttribute("commandeForm", commande);
-	        return "/commande/addUpdateCommande";
+	        return "commande/addUpdateCommande";
 	    }
 	    
-	    @RequestMapping(value = "/commande/delete/{id}")
+	    @RequestMapping(value = "/delete/{id}")
 	    public String delete(@PathVariable Long id) throws Exception {
 	        commandeService.deleteCommande(id);
 	        return "redirect:/commande/listAll";
