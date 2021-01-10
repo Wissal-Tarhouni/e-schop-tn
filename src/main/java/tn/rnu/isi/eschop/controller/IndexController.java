@@ -15,15 +15,12 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -53,25 +50,13 @@ public class IndexController {
 	@Autowired
 	ProduitService produitService;
 	
-	@Autowired
-    private DataSource dataSource;
 	
 	@RequestMapping(value="/", method= RequestMethod.GET)
 	public String index(Map<String, Object> model) throws Exception {
-		
-		
-		if(!(produitService.getAll().size()>0)) {
-			loadData();
-		}
 	 
     return "index";
 	}   
-
-
-    public void loadData() {
-     ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(false, false, "UTF-8", new ClassPathResource("data.sql"));
-     resourceDatabasePopulator.execute(dataSource);
-    }
+	
  
 	/**************************************
 	 * Gestion produit

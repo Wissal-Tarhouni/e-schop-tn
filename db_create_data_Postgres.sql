@@ -1,5 +1,149 @@
+-- ---------------------------------------------------------------------------------------
+--  DROP Tables   a decommenter  si les tables existent deja !
+-- --------------------------------------------------------------------------------------- 
+ /*
+DROP TABLE commande;
+DROP TABLE produit;
+DROP TABLE categorie;
+DROP TABLE "CLIENT";
+DROP TABLE ville;
+ 
+*/
+-- ---------------------------------------------------------------------------------------
+--  DROP sequences a decommenter  si les sequences existent deja !
+-- ---------------------------------------------------------------------------------------
+ /*
+DROP SEQUENCE client_seq;
+DROP SEQUENCE commande_seq;
+DROP SEQUENCE produit_seq;
+DROP SEQUENCE categorie_seq; 
+ 
+*/
 -- ----------------------------
--- Insertions categorie
+-- Table structure for "categorie"
+-- ---------------------------- 
+CREATE TABLE categorie(
+id_categ NUMERIC(19,0) NOT NULL ,
+code_categ VARCHAR(10) NULL,
+libelle_categ VARCHAR(50) NULL,
+PRIMARY KEY (id_categ)
+);
+-- ----------------------------
+-- Table structure for client
+-- ----------------------------
+CREATE TABLE client (
+id_client NUMERIC(19,0) NOT NULL ,
+login_client VARCHAR(20) NULL,
+mot_passe_client VARCHAR(20) NULL,
+nom_client VARCHAR(70) NULL,
+prenom_client VARCHAR(70) NULL,
+civilite_client VARCHAR(7) NULL,
+date_naissance_client VARCHAR(20) NULL,
+numero_adr_client VARCHAR(5) NULL,
+rue_adr_client VARCHAR(100) NULL,
+commune_adr_client VARCHAR(50) NULL,
+ville_adr_client VARCHAR(50) NULL,
+cp_adr_client VARCHAR(10) NULL,
+tel_client VARCHAR(20) NULL,
+fax_client VARCHAR(20) NULL,
+gsm_client VARCHAR(20) NULL,
+email_client VARCHAR(50) NULL,
+PRIMARY KEY (id_client)
+
+);
+-- ----------------------------
+-- Table structure for "produit"
+-- ----------------------------
+CREATE TABLE produit(
+id_produit NUMERIC(19,0) NOT NULL ,
+id_categ NUMERIC(19,0) NOT NULL ,
+desig_produit VARCHAR(100) NULL,
+pu_produit NUMERIC (9, 3)  NULL,
+qte_produit INTEGER NULL,
+config_produit VARCHAR(100) NULL,
+marque_produit VARCHAR(50) NULL,
+modele_produit VARCHAR(50) NULL,
+PRIMARY KEY (id_produit)
+);
+-- ----------------------------
+-- Table structure for "commande"
+-- ----------------------------
+CREATE TABLE commande(
+id_commande NUMERIC(19,0) NOT NULL ,
+id_client NUMERIC(19,0)  NOT NULL,
+id_produit NUMERIC(19,0)  NOT NULL,
+qte_commande INTEGER NULL,
+date_commande DATE NULL,
+etat_commande INTEGER NULL,
+PRIMARY KEY (id_commande)
+
+);
+
+-- ----------------------------
+-- Table structure for "ville"
+-- ---------------------------- 
+CREATE TABLE ville(
+id_ville NUMERIC(19,0) NOT NULL ,
+ville_id VARCHAR(3) NOT NULL,
+ville_nom VARCHAR(45) NULL,
+ville_nom_reel VARCHAR(45) NULL,
+ville_code_postal  VARCHAR(5) DEFAULT NULL,
+ville_commune VARCHAR(3) DEFAULT NULL,
+ville_code_commune VARCHAR(5) NOT NULL,
+ville_arrondissement VARCHAR(1) NULL,
+
+PRIMARY KEY (id_ville)
+);
+
+ALTER TABLE commande ADD FOREIGN KEY (id_client) REFERENCES client (id_client);
+
+ALTER TABLE commande ADD FOREIGN KEY (id_produit) REFERENCES produit (id_produit);
+
+ALTER TABLE produit ADD FOREIGN KEY (id_categ) REFERENCES categorie (id_categ);
+
+
+-- ----------------------------
+-- Sequence structure for "client_seq"
+-- ----------------------------
+CREATE SEQUENCE client_seq
+minvalue 1
+maxvalue 999999999999999999
+start with 4 -- Dernier ID des insertions 
+increment by 1;
+
+ -- ----------------------------
+-- Sequence structure for "commande_seq"
+-- ----------------------------
+CREATE SEQUENCE commande_seq
+minvalue 1
+maxvalue 999999999999999999
+start with 15 -- Dernier ID des insertions 
+increment by 1;
+
+ 
+ 
+ -- ----------------------------
+-- Sequence structure for "produit_seq"
+-- ----------------------------
+CREATE SEQUENCE produit_seq
+minvalue 1
+maxvalue 999999999999999999
+start with 24 -- Dernier ID des insertions 
+increment by 1;
+
+ 
+ -- ----------------------------
+-- Sequence structure for "categorie_seq"
+-- ----------------------------
+CREATE SEQUENCE categorie_seq
+minvalue 1
+maxvalue 999999999999999999
+start with 21 -- Dernier ID des insertions 
+increment by 1;
+
+
+ -- ----------------------------
+-- Insertions des donnes
 -- ----------------------------
 INSERT INTO categorie VALUES ('1', '1', 'LabTops');
 INSERT INTO categorie VALUES ('2', '2', 'Ordinateurs');
@@ -21,15 +165,13 @@ INSERT INTO categorie VALUES ('17', '17', 'USB Flash Drives');
 INSERT INTO categorie VALUES ('18', '18', 'Video Cards');
 INSERT INTO categorie VALUES ('19', '19', 'Webcams');
 INSERT INTO categorie VALUES ('20', '20', 'Wireless Accessories');
--- ----------------------------
--- Insertions client
--- ----------------------------
+
+
+
 INSERT INTO client VALUES ('1', 'Alex', 'Alex', 'DUPONT', 'Alex', 'Mr.', '15/11/1992', '42', 'RUE LA DANCE', 'LA DEFENSE', 'PARIS', '60620', '02125487', '', '0698464641', 'alex.dupont@yahoo.fr');
 INSERT INTO client VALUES ('2', 'Didier', 'Didier', 'TRIZIG', 'Didier', 'Mr.', '13/09/1977', '5', 'RUE DES MARTYRS', 'CENTRE', 'NICE', '70250', '05214587', '02125478', '06215487', 'did.mar@gmail.com');
 INSERT INTO client VALUES ('3', 'Fabricia', 'Fabricia', 'ZARRA', 'Fabricia', 'Mme.', '06/11/1988', '6', 'RUE DES AGHLABITES', 'ZONE URBAIN', 'LE HAVRE', '04125441', '02724223', '', '0698222222', 'fab.z@gmail.com');
--- ----------------------------
--- Insertions produit
--- ---------------------------- 
+ 
 INSERT INTO produit VALUES ('1', '1', 'Acer', '480', '12', 'Acer Aspire AX3300-ED2215A AMD Athlon II X2 215 4GB 640GB GeForce 9200 Winndows 7 Home Desktop ', 'Acer', 'Aspire AX3300');
 INSERT INTO produit VALUES ('2', '1', 'Samsung', '849.99', '15', 'Samsung R530L Intel Core 2 Duo T6600 4GB 500GB 15.6IN HD WLAN Webcam Windows 7 Premium Notebook Red ', 'Samsung', 'R530L ');
 INSERT INTO produit VALUES ('3', '1', 'Samsung', '370', '24', 'Samsung R480-I5 Intel Core i5 430M 4GB 500GB 14IN HD WLAN Webcam Windows 7 Premium Notebook Red ', 'Samsung', 'R480-I5');
@@ -53,9 +195,7 @@ INSERT INTO produit VALUES ('20', '17', 'Kingston', '10', '5000', 'Kingston SSDN
 INSERT INTO produit VALUES ('21', '20', 'Warpia', '2', '450', 'Warpia Lifecam Cinema 720P 16:9 HD Webcam Retail Box Auto Focus Noise Cancelling Microphone ', 'Warpia', 'Lifecam');
 INSERT INTO produit VALUES ('22', '2', 'Toshiba', '560', '59', 'Toshiba Corsair Obsidian Series 800D Full Tower Case EATX 5X5.25 4X3.5 ', 'Toshiba', 'Obsidian ');
 INSERT INTO produit VALUES ('23', '4', 'Western', '4000', '100', 'Western Digital My Passport Essential 500GB External Hard Drive USB 2.0 Black ', 'Western', 'Essential');
--- ----------------------------
--- Insertions commande
--- ---------------------------- 
+
 INSERT INTO commande VALUES ('1', '1', '10', '56', TO_DATE('22/11/2016', 'dd/mm/yyyy'), '1');
 INSERT INTO commande VALUES ('2', '1', '1', '1', TO_DATE('23/11/2016', 'dd/mm/yyyy'), '1');
 INSERT INTO commande VALUES ('3', '1', '20', '6544', TO_DATE('22/11/2016', 'dd/mm/yyyy'), '1');
