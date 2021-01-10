@@ -36,22 +36,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  */
 public class WebMVCConfig implements WebMvcConfigurer,  ApplicationContextAware {
 
-    private ApplicationContext applicationContext;
-
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
     }
 
-    private ISpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.addDialect(new Java8TimeDialect());
-        engine.setTemplateResolver(templateResolver);
-        engine.setTemplateEngineMessageSource(messageSource());
-        return engine;
-    }
-   
-    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("resources/**").addResourceLocations("/resources/");
@@ -78,7 +66,7 @@ public class WebMVCConfig implements WebMvcConfigurer,  ApplicationContextAware 
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("en"));
+        localeResolver.setDefaultLocale(new Locale("fr"));
         return localeResolver;
     }
 
