@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>tn.rnu.isi.eschop</groupId>
-	<artifactId>e-schop-tn</artifactId>
+	<artifactId>eschop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>eschop-tn</name>
+	<name>eschop</name>
 	<description>Spring MVC Boot Data - Postgres</description>
 
 	<properties>
@@ -75,24 +75,28 @@
 		<dependency>
 		            <groupId>org.postgresql</groupId>
 		            <artifactId>postgresql</artifactId>
+		            <version>42.2.5</version>
 		            <scope>runtime</scope>
 		</dependency>		
 		
 	</dependencies>
 
 	<build>
-	  <plugins>
-	    <plugin>
-	      <groupId>com.heroku.sdk</groupId>
-	      <artifactId>heroku-maven-plugin</artifactId>
-	      <version>3.0.4</version>
-	      <configuration>
-	        <appName>${heroku.appName}</appName>
-	      </configuration>
-	    </plugin>
-	  </plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	
 
-	<packaging>jar</packaging>
 </project>
