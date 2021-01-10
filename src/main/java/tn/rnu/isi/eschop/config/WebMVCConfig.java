@@ -48,52 +48,28 @@ public class WebMVCConfig implements WebMvcConfigurer,  ApplicationContextAware 
     public ViewResolver htmlViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine(htmlTemplateResolver()));
-        resolver.setContentType("text/html");
+        resolver.setContentType("text/html; charset=UTF-8");
         resolver.setCharacterEncoding("UTF-8");
+        resolver.setViewNames(new String[] {"*.html"});
         return resolver;
     }
 
-   
 
+    
     private ISpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
         SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.addDialect(new Java8TimeDialect());
         engine.setTemplateResolver(templateResolver);
-        engine.setTemplateEngineMessageSource(messageSource());
         return engine;
     }
 
-    private ITemplateResolver htmlTemplateResolver() {
+	private ITemplateResolver htmlTemplateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-        resolver.setApplicationContext(applicationContext);
+        resolver.setCharacterEncoding("UTF-8");
         resolver.setPrefix("/templates/");
-        resolver.setSuffix(".html");
         resolver.setCacheable(false);
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
-    
-   
-    
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("resources/**").addResourceLocations("classpath:/");
-        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
-        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
-        registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
-
-    }
-    
-   
-    
-    @Bean
-    @Description("Spring Message Resolver")
-    public ResourceBundleMessageSource messageSource() {
-        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("messages");
-        return messageSource;
-    }
-
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver localeResolver = new SessionLocaleResolver();
