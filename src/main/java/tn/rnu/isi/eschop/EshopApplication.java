@@ -35,15 +35,6 @@ public class EshopApplication extends SpringBootServletInitializer {
 	private static final Logger log = LoggerFactory.getLogger(EshopApplication.class);
 
 	
-//	@Bean
-//	public TomcatEmbeddedServletContainerFactory tomcatFactory() {
-//	    TomcatEmbeddedServletContainerFactory tomcatFactory = new TomcatEmbeddedServletContainerFactory();
-//	    tomcatFactory.addContextCustomizers((context) -> {
-//	        StandardRoot standardRoot = new StandardRoot(context);
-//	        standardRoot.setCacheMaxSize(40 * 1024);
-//	    });
-//	    return tomcatFactory;
-//	}
 	
 	public EshopApplication()
 	   {
