@@ -5,7 +5,7 @@
 DROP TABLE commande;
 DROP TABLE produit;
 DROP TABLE categorie;
-DROP TABLE "CLIENT";
+DROP TABLE client;
 DROP TABLE ville;
  
 */
