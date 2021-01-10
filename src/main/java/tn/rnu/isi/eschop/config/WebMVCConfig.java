@@ -88,8 +88,6 @@ public class WebMVCConfig implements WebMvcConfigurer,  ApplicationContextAware 
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("resources/**").addResourceLocations("classpath:/");
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
